@@ -12,6 +12,24 @@ function displayRamen(allRamen){
     allRamen.forEach(ramen => {
         const ramenImg = document.createElement('img');
         ramenImg.src = ramen.image;
-        ramenMenu.appendChild(ramenImg)
-    })
+        ramenImg.addEventListener('click', () => displayRamenDetails(ramen));
+        ramenMenu.appendChild(ramenImg);
+    });
+}
+
+function displayRamenDetails(ramen){
+    const ramenImg = document.querySelector('#ramen-detail img');
+    ramenImg.src = ramen.image;
+
+    const ramenName = document.querySelector('#ramen-detail h2');
+    ramenName.textContent = ramen.name;
+    
+    const ramenRestaurant = document.querySelector('#ramen-detail h3');
+    ramenRestaurant.textContent = ramen.restaurant;
+
+    const ramenRating = document.querySelector('#rating-display');
+    ramenRating.textContent = ramen.rating;
+
+    const ramenComment = document.querySelector('#comment-display');
+    ramenComment.textContent = ramen.comment;
 }
