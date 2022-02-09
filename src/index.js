@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(data => {
         data.forEach(ramen => displayRamen(ramen))
+        displayRamenDetails(data[0]);
     })
 
     const newRamenForm = document.querySelector('#new-ramen');
