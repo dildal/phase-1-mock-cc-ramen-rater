@@ -59,8 +59,22 @@ function addRamen(e){
         rating: e.target['new-rating'].value,
         comment: e.target['new-comment'].value,
     }
-    displayRamen(newRamen);
-    e.target.reset();
+    fetch(URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newRamen),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    // displayRamen(newRamen);
+    // e.target.reset();
 }
 
 function editRamen(e){
@@ -73,3 +87,21 @@ function editRamen(e){
 
     e.target.reset();
 }
+
+
+// const data = { username: 'example' };
+
+// fetch('https://example.com/profile', {
+//   method: 'POST', // or 'PUT'
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(data),
+// })
+// .then(response => response.json())
+// .then(data => {
+//   console.log('Success:', data);
+// })
+// .catch((error) => {
+//   console.error('Error:', error);
+// });
