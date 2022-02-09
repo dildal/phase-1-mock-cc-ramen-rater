@@ -4,17 +4,21 @@ const URL = 'http://localhost:3000/ramens'
 document.addEventListener('DOMContentLoaded', () => {
     fetch(URL)
     .then(res => res.json())
-    .then(data => displayRamen(data))
+    .then(data => {
+        data.forEach(ramen => displayRamen(ramen))
+    })
+
+    const newRamenForm = document.querySelector('#new-ramen');
+    newRamenForm.addEventListener('submit', addRamen);
+    newRamenForm.reset();
 })
 
-function displayRamen(allRamen){
+function displayRamen(ramen){
     const ramenMenu = document.querySelector('#ramen-menu');
-    allRamen.forEach(ramen => {
-        const ramenImg = document.createElement('img');
-        ramenImg.src = ramen.image;
-        ramenImg.addEventListener('click', () => displayRamenDetails(ramen));
-        ramenMenu.appendChild(ramenImg);
-    });
+    const ramenImg = document.createElement('img');
+    ramenImg.src = ramen.image;
+    ramenImg.addEventListener('click', () => displayRamenDetails(ramen));
+    ramenMenu.appendChild(ramenImg);
 }
 
 function displayRamenDetails(ramen){
@@ -32,4 +36,17 @@ function displayRamenDetails(ramen){
 
     const ramenComment = document.querySelector('#comment-display');
     ramenComment.textContent = ramen.comment;
+}
+
+function addRamen(e){
+    e.preventDefault();
+    const newRamen = {
+        name: e.target['new-name'].value,
+        restaurant: e.target['new-restaurant'].value,
+        image: e.target['new-image'].value,
+        rating: e.target['new-rating'].value,
+        comment: e.target['new-comment'].value,
+    }
+    displayRamen(newRamen);
+    e.target.reset();
 }
